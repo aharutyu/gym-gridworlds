@@ -51,7 +51,7 @@ class GridWorld(gym.Env):
 
   	self.state = self.coord2ind([row, col])
 
-  	if self.state == self.terminal_state
+  	if self.state == self.terminal_state:
   		self.state = self.absorbing_state
   		self.done = true
 
@@ -82,7 +82,7 @@ class GridWorld(gym.Env):
 
 
   def _reset(self):
-  	return self.start_state if not isinstance(self.start_state, str) else np.random.rand(self.n**2)
+  	return self.start_state if not isinstance(self.start_state, str) else np.random.randint(self.n**2)
   	
 
   #def _render(self, mode='human', close=False):
