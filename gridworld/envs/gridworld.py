@@ -15,8 +15,8 @@ LEFT = 3
 class GridWorld(gym.Env):
   metadata = {'render.modes': ['human']}
 
-  def __init__(self, n = 5, noise = 0.0, terminal_reward = 1, 
-  				border_reward = -1, step_reward = 0.0, start_state = 'random'):
+  def __init__(self, n = 5, noise = 0.0, terminal_reward = 1.0, 
+  				border_reward = -1.0, step_reward = 0.0, start_state = 'random'):
     self.n = n
     self.noise = noise
     self.terminal_reward = terminal_reward
@@ -26,7 +26,7 @@ class GridWorld(gym.Env):
     self.absorbing_state = self.n ** 2 + 1
     self.done = False
     self.start_state = start_state #if not isinstance(start_state, str) else np.random.rand(n**2)
-    self.state = self._reset()
+    self._reset()
 
     self.action_space = spaces.Discrete(4)
     self.observation_space = spaces.Discrete(self.n ** 2 + 1) # with absorbing state
@@ -57,7 +57,7 @@ class GridWorld(gym.Env):
 
   	reward = self._get_reward()
 
-  	return self.state, reward, self.done
+  	return self.state, reward, self.done, None
 
   def _get_reward(self):
   	reward = self.step_reward
@@ -75,6 +75,8 @@ class GridWorld(gym.Env):
   	col = index // self.n
   	row = index % self.n
 
+  	return [row, col]
+
 
   def coord2ind(self, coord):
   	[row, col] = coord
@@ -82,8 +84,8 @@ class GridWorld(gym.Env):
 
 
   def _reset(self):
-  	return self.start_state if not isinstance(self.start_state, str) else np.random.randint(self.n**2)
-  	
+  	self.state = self.start_state if not isinstance(self.start_state, str) else np.random.randint(self.n**2)
+  	return self.state
 
   #def _render(self, mode='human', close=False):
   #  ...
