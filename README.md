@@ -1,1 +1,3 @@
-# Four rooms
+# gridworld environments
+* basic gridworld
+* four rooms
