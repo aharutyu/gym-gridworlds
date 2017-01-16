@@ -1,2 +1,2 @@
-from gridworlds.envs.gridworlds import FourRooms
-from gridworlds.envs.gridworlds import GridWorld
+from gridworlds.envs.four_rooms import FourRooms
+from gridworlds.envs.gridworld import GridWorld

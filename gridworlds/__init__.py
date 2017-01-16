@@ -2,7 +2,7 @@ from gym.envs.registration import register
 
 register(
     id='FourRooms-v0',
-    entry_point='FourRooms.envs:FourRooms',
+    entry_point='gridworlds.envs:FourRooms',
     timestep_limit=100000,
 )    
 

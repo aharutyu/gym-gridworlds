@@ -41,6 +41,7 @@ class FourRooms(gym.Env):
     self.absorbing_state = self.n_states
 
     self.goal = [2, [1, 2]]
+    self.in_hallway = False
     self.terminal_state = self.encode(self.goal)
     self.step_reward = 0.0
     self.terminal_reward = 1.0
@@ -61,7 +62,7 @@ class FourRooms(gym.Env):
     if self.in_hallway:
       return self.offsets[room + 1] - 1
       # maybe have hallways as input
-    ind_in_room = self.coord2ind(coord, sizes=room_sizes[room])
+    ind_in_room = self.coord2ind(coord, sizes=self.room_sizes[room])
     return ind_in_room + self.offsets[room]
 
   def decode(self, index):
@@ -70,11 +71,11 @@ class FourRooms(gym.Env):
     # we don't treat absorbing state, it's instead treated in step
     #hallway = True if index - (offsets[room + 1] - 1) == 0 else False
 
-    room = [r for r, offset in enumerate(offsets) if index < offsets[r]][0]
+    room = [r for r, offset in enumerate(self.offsets) if index < self.offsets[r]][0]
     if self.in_hallway:
       coord_in_room = self.hallway_coords[room]
     else:
-      coord_in_room = self.ind2coord(index - offsets[room], room_sizes[room])
+      coord_in_room = self.ind2coord(index - self.offsets[room], self.room_sizes[room])
     return room, coord_in_room # hallway
 
   def _step(self, action):
