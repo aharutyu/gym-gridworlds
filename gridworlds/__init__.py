@@ -7,7 +7,7 @@ register(
 )    
 
 register(
-    id='GridWorld-v0',
+    id='gridworld-v0',
     entry_point='gridworlds.envs:GridWorld',
     timestep_limit=100000,
 )
