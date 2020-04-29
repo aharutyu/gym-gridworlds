@@ -131,9 +131,8 @@ class FourRooms(gym.Env):
     if in_hallway: # hallway action
       [room2, coord2] = self.hallways[room][action]
     
-    elif tuple(coord) in self.pre_hallways[room].keys():
-      hallway_info = self.pre_hallways[room][tuple(coord)]
-      if action == hallway_info[0]:
+    elif tuple(coord) in self.pre_hallways[room].keys() and action == self.pre_hallways[room][tuple(coord)][0]:
+        hallway_info = self.pre_hallways[room][tuple(coord)]
         room2 = hallway_info[1]
         coord2 = self.hallway_coords[room2]
     
